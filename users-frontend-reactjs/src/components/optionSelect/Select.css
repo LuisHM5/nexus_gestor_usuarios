@@ -1,0 +1,15 @@
+.select {
+  padding: 16px 32px;
+  font-size: 18px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  outline: none;
+  background-color: var(--input-color);
+  color: var(--text-color);
+  transition: border-color 0.2s ease-in-out;
+}
+
+.select:focus {
+  border-color: blue;
+  border: 1px solid blue;
+}

@@ -1,0 +1,86 @@
+/* Estilos para tema claro */
+table {
+  border-collapse: collapse;
+  margin: 2rem auto;
+  font-size: 1.2rem;
+  font-family: Arial, sans-serif;
+  width: 90%;
+  max-width: 1200px;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+th {
+  font-weight: bold;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  text-align: left;
+}
+
+.component {
+  text-align: center;
+}
+
+/* Estilos para mejorar input checkbox*/
+.component input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+}
+td .component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-add-delete {
+  text-align: center;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.component-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--input-color);
+  color: var(--text-color);
+}
+.component-container.minus {
+  color: red;
+}
+.component-container.plus {
+  color: green;
+}
+
+td {
+  border: 1px solid #ddd;
+  padding: 1rem;
+}
+
+/* Estilos para tema oscuro */
+.app.dark table {
+  border-collapse: collapse;
+  margin: 2rem auto;
+  font-size: 1.2rem;
+  font-family: Arial, sans-serif;
+  width: 90%;
+  max-width: 1200px;
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.app.dark th {
+  font-weight: bold;
+  background-color: #222;
+  border: 1px solid #555;
+  padding: 1rem;
+}
+
+.app.dark td {
+  border: 1px solid #555;
+  padding: 1rem;
+}

@@ -1,0 +1,171 @@
+.app {
+  height: 100vh;
+  /* max-height: 1000px; */
+}
+.page {
+  margin-left: 250px;
+  width: calc(100vw - 250px);
+  background-color: var(--body-color);
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.container-page {
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+  width: 90%;
+  height: 90%;
+}
+
+.title-page {
+  /* Fuente */
+  font-family: "Open Sans", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+
+  /* Color */
+  color: var(--text-color);
+
+  /* Espaciado */
+  margin: 0;
+  padding: 10px 0;
+  margin-bottom: 1.5rem;
+
+  /* Borde inferior */
+  border-bottom: 2px solid var(--text-color);
+}
+.title-2 {
+  /* Fuente */
+  font-family: "Open Sans", sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+
+  /* Color */
+  color: var(--text-color);
+
+  /* Espaciado */
+  margin: 0;
+  padding: 10px 0;
+}
+
+/* INPUT */
+
+/* para Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* para Chrome */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/*desktop */
+@media (min-width: 770px) {
+  .input {
+    min-width: 400px;
+    max-width: 50%;
+  }
+}
+
+/*mobile */
+@media (max-width: 770px) {
+  .container-input-search {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    gap: 0.5rem;
+  }
+  .container-input-search .input {
+    width: 100%;
+    min-width: auto;
+    max-width: 100%;
+  }
+}
+
+/* SELECT */
+@media screen and (max-width: 770px) {
+  .app .select {
+    text-align: left;
+    padding-left: 2px;
+  }
+}
+/* TABLE */
+
+@media screen and (max-width: 1000px) {
+  .table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* Estilos para tabla responsive */
+@media screen and (max-width: 600px) {
+  .table {
+    width: 90%;
+    display: table;
+    overflow-x: auto;
+    white-space: normal;
+  }
+  .table-head {
+    display: none;
+  }
+
+  .table td {
+    display: block;
+    text-align: right;
+  }
+  .table td.component {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
+  .table .component-container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
+
+  .table th,
+  td {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+  .table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    text-transform: uppercase;
+    float: left;
+    margin-right: 2rem;
+  }
+  .table-body tr {
+    display: block;
+    border-bottom: 1rem solid var(--text-color);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* ATTENDANCE */
+
+/* mobile */
+@media (max-width: 768px) {
+  .app .input-container-principal {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .app .input-container-principal * {
+    width: 90%;
+  }
+}

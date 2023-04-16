@@ -1,0 +1,15 @@
+/* .app.dark .MuiInputBase-root {
+  background-color: red !important;
+}
+.app.dark .input-dark .MuiInputBase-root .MuiInputBase-input {
+  background-color: red !important;
+} */
+
+.app.dark .input-dark {
+  background-color: var(--input-color);
+  color: white !important;
+}
+
+.MuiOutlinedInput-input {
+  color: var(--text-color) !important;
+}

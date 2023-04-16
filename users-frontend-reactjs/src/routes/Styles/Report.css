@@ -1,0 +1,53 @@
+.input-container-principal-report {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  gap: 2rem;
+  max-width: 710px;
+  min-height: 60px;
+}
+
+.app .todos {
+  background-color: rgb(212, 215, 214);
+  width: 25%;
+  min-width: fit-content;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.app.dark .todos {
+  background-color: #363636;
+}
+.app .lbl-checkbox {
+  color: var(--color-text);
+}
+.app.dark .lbl-checkbox .MuiTypography-root {
+  color: white;
+}
+/* .app .lbl-checkbox * {
+  color: var(--color-text) !important;
+} */
+
+/* REPORT */
+
+/* mobile */
+@media (max-width: 768px) {
+  .app .input-container-principal-report {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .app .input-container-principal-report .date-picker,
+  .btn-generar {
+    width: 90%;
+  }
+
+  .app .todos {
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    gap: 0.5rem;
+    width: 100%;
+    min-width: none;
+  }
+}
