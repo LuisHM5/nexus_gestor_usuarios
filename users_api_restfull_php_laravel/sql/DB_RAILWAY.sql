@@ -20,41 +20,48 @@ CREATE TABLE asistencias(
 
 /* VISTAS */
 /*Entrada y salida de un día determinado*/
+
 DROP VIEW IF EXISTS v_entrada_salida;
 CREATE VIEW v_entrada_salida AS
-SELECT u.codigo,u.nombre, a1.fecha, a1.hora AS entrada, a2.hora AS salida
+SELECT u.codigo, u.nombre, a1.fecha, a1.hora AS entrada, 
+       (SELECT MAX(a2.hora) FROM asistencias a2 WHERE a2.codigo = u.codigo AND a2.fecha = a1.fecha AND a2.entrada = false) AS salida
 FROM usuarios u
 LEFT JOIN asistencias a1 ON u.codigo = a1.codigo AND a1.entrada = true
-LEFT JOIN asistencias a2 ON u.codigo = a2.codigo AND a2.entrada = false AND a1.fecha = a2.fecha
-WHERE a1.fecha IS NOT NULL OR a2.fecha IS NOT NULL ORDER BY a1.fecha desc;
+WHERE a1.fecha IS NOT NULL 
+ORDER BY a1.fecha DESC, entrada DESC, salida DESC;
+
+
+
+
 SELECT * FROM v_entrada_salida;
 
-select * from asistencias;
- /*SELECT EJEMPLO PARA REPORTE DE FECHAS*/
-SELECT *
-FROM v_entrada_salida
-WHERE codigo IN (100000000001, 100000000002)
-AND fecha BETWEEN '2023-04-01' AND '2023-04-30';
-
-SELECT *
-FROM v_entrada_salida
-WHERE codigo IN (100000000013, 100000000014)
-AND fecha BETWEEN '2023-04-01' AND '2023-04-30';
 
 DROP VIEW IF EXISTS v_entrada_salida_hoy;
 CREATE VIEW v_entrada_salida_hoy AS
-SELECT u.codigo,u.nombre, a1.fecha, a1.hora AS entrada, a2.hora AS salida
+SELECT u.codigo, u.nombre, a1.fecha, a1.hora AS entrada, 
+       (SELECT MIN(a2.hora) FROM asistencias a2 WHERE a2.codigo = u.codigo AND a2.fecha = a1.fecha AND a2.hora > a1.hora AND a2.entrada = false) AS salida
 FROM usuarios u
-LEFT JOIN asistencias a1 ON u.codigo = a1.codigo AND a1.entrada = true
-LEFT JOIN asistencias a2 ON u.codigo = a2.codigo AND a2.entrada = false AND a1.fecha = a2.fecha
-WHERE (a1.fecha = CURDATE() OR a2.fecha = CURDATE()) AND (a1.fecha IS NOT NULL OR a2.fecha IS NOT NULL) ORDER BY entrada desc;
+LEFT JOIN asistencias a1 ON u.codigo = a1.codigo AND a1.entrada = true AND a1.fecha = CURDATE()
+WHERE a1.fecha IS NOT NULL
+ORDER BY entrada DESC;
+
 SELECT * FROM v_entrada_salida_hoy;
+
+
+
+
+
+
+select CURDATE();
+select * from asistencias where codigo=280034563765 order by hora desc;
+
 /* SELECCIONAR DB SYS */
 SET GLOBAL time_zone = 'America/Chihuahua';
 SET SESSION time_zone = 'America/Chihuahua';
 SET @@global.time_zone = 'America/Chihuahua';
 SELECT @@global.time_zone, @@session.time_zone;
 select * from usuarios;
+select * from asistencias where codigo=363705060784;
 select * from asistencias;
 select curdate();
 /* PROCEDIMIENTOS ALMACENADOS */
@@ -69,17 +76,37 @@ BEGIN
     INSERT INTO usuarios VALUES (100000000004 + contador, CONCAT('usuario', contador), CONCAT('nick', contador), CONCAT('usuario', contador, '@gmail.com'), 'B221D9DBB083A7F33428D7C2A3C3198AE925614D70210E28716CCAA7CD4DDB79', true);
 	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, true, '2023-04-04', '9:00:00');
 	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, false, '2023-04-04', '21:00:00');
-	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, true, '2023-04-20', '9:00:00');
-	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, false, '2023-04-20', '21:00:00');
-	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, true, '2023-04-30', '9:00:00');
-	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, false, '2023-04-30', '21:00:00');
-	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, true, '2023-05-30', '9:00:00');
-	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, false, '2023-05-30', '21:00:00');
+	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, true, '2023-04-18', '9:00:00');
+	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, false, '2023-04-18', '21:00:00');
+	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, true, '2023-04-19', '9:00:00');
+	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, false, '2023-04-19', '21:00:00');
+	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, true, '2023-03-19', '9:00:00');
+	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, false, '2023-03-19', '21:00:00');
   END WHILE;
 END //
 DELIMITER ;
 CALL insertar_10_usuarios();
 
+DROP PROCEDURE IF EXISTS insertar_10_asistencias;
+DELIMITER //
+CREATE PROCEDURE insertar_10_asistencias()
+BEGIN
+  DECLARE contador INT DEFAULT 0;
+
+  WHILE contador < 10 DO
+    SET contador = contador + 1;
+	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, true, '2023-04-04', '9:00:00');
+	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, false, '2023-04-04', '21:00:00');
+	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, true, '2023-04-18', '9:00:00');
+	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, false, '2023-04-18', '21:00:00');
+	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, true, '2023-04-19', '9:00:00');
+	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, false, '2023-04-19', '21:00:00');
+	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, true, '2023-02-19', '9:00:00');
+	INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000004 + contador, false, '2023-02-19', '21:00:00');
+  END WHILE;
+END //
+DELIMITER ;
+CALL insertar_10_asistencias();
 /* FUNCIONES */
 /*
 DROP FUNCTION IF EXISTS generar_codigo;
@@ -132,6 +159,7 @@ insert into usuarios VALUES(100000000003,'test','test','tttt@gmail.com','B221D9D
 insert into usuarios VALUES(100000000004,'test2','test2','tttt2@gmail.com','B221D9DBB083A7F33428D7C2A3C3198AE925614D70210E28716CCAA7CD4DDB79',true);
 */
 select * from usuarios;
+/*
 INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000005, true, CURDATE(), '09:00:00');
 INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000005, false, CURDATE(), '20:00:00');
 
@@ -140,11 +168,15 @@ INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000006, fal
 
 INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000007, true, CURDATE(), '10:00:00');
 INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000007, false, CURDATE(), '18:00:00');
-
+*/
+select * from asistencias where year(fecha) = 2022;
 INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000008, true, '2022-04-03', '09:00:00');
 INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000008, false, '2022-04-03', '20:00:00');
-INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000009, true, CURDATE(), '20:00:00');
+
 INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000009, true, '2022-04-03', '8:00:00');
+INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000009, false, '2022-04-03', '20:00:00');
+
+INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000010, true, '2022-04-03', '8:00:00');
 INSERT INTO asistencias (codigo, entrada, fecha, hora) VALUES (100000000010, false, '2022-04-03', '20:00:00');
 
 
