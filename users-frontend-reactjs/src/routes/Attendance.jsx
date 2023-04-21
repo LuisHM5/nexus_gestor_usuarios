@@ -10,6 +10,7 @@ import { servicio_registrarAsistencia } from "../services/asistencia";
 import { getUser } from "../services/user";
 // import { TextField } from "@mui/material";
 import Notification from "../components/Notification";
+import { formatDate } from "../helpers/formatDate";
 const columnas = ["Codigo", "Nombre", "Fecha", "Entrada", "Salida"];
 
 const Attendance = () => {
@@ -18,8 +19,11 @@ const Attendance = () => {
     { value: "false", label: "Salidas" },
   ];
   const [datos, setDatos] = useState({ resultados: [] });
+  const [datos2, setDatos2] = useState({ resultados: [] });
 
   const { loading, error, data, handleCancelRequest } = views({ vista: "v_entrada_salida_hoy" });
+  const { loading: loading2, error: error2, data: data2 } = views({ vista: "v_entrada_salida" });
+
   const [entrada, setEntrada] = useState("true");
 
   const [notificacionAsistencia, setNotificacionAsistencia] = useState(false);
@@ -35,6 +39,12 @@ const Attendance = () => {
       setDatos(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (!loading2 && !error2) {
+      setDatos2(data2);
+    }
+  }, [data2]);
 
   const handleInputCodigoChange = (e) => {
     setNotificacionAsistencia(false);
@@ -68,15 +78,15 @@ const Attendance = () => {
     }
   };
 
-  const formatDate = (date) => {
-    const year = date.getFullYear().toString().padStart(4, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
-    const hours = date.getHours().toString().padStart(2, "0");
-    const minutes = date.getMinutes().toString().padStart(2, "0");
-    const seconds = date.getSeconds().toString().padStart(2, "0");
-    return { fecha: `${year}-${month}-${day}`, hora: `${hours}:${minutes}:${seconds}` };
-  };
+  // const formatDate = (date) => {
+  //   const year = date.getFullYear().toString().padStart(4, "0");
+  //   const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  //   const day = date.getDate().toString().padStart(2, "0");
+  //   const hours = date.getHours().toString().padStart(2, "0");
+  //   const minutes = date.getMinutes().toString().padStart(2, "0");
+  //   const seconds = date.getSeconds().toString().padStart(2, "0");
+  //   return { fecha: `${year}-${month}-${day}`, hora: `${hours}:${minutes}:${seconds}` };
+  // };
 
   const registrarAsistencia = async () => {
     setNotificacionAsistencia(false);
@@ -181,7 +191,7 @@ const Attendance = () => {
 
   return (
     <>
-      <div className="title-page">Registrando asistencia</div>
+      {/* <div className="title-page">Registrando asistencia</div>
       <Notification type={tipoNotificacionAsistencia} open={notificacionAsistencia} setOpen={setNotificacionAsistencia}>
         {notificacionAsistenciaMensaje}
       </Notification>
@@ -204,11 +214,15 @@ const Attendance = () => {
         </Button>
       </div>
 
-      <h2 className="title-2">Asistencias del día de hoy</h2>
+      <h2 className="title-2">Asistencias del día de hoy</h2> */}
+      <div className="title-page">Asistencias del día de hoy</div>
 
       {loading && <CircularProgress />}
       {error && <Alert severity="error">Error al cargar los datos</Alert>}
       {data && <Table columns={columnas} data={datos?.resultados} component={false} />}
+
+      <div className="title-page">Todas las Asistencias</div>
+      {data2 && <Table columns={columnas} data={datos2?.resultados} component={false} />}
     </>
   );
 };

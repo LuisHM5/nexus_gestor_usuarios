@@ -61,8 +61,9 @@ const Sidebar = ({ mode, sidebar, rutas, usuario, logout }) => {
             </li>
             <li className="nav-link">
               <Link to={rutas.asistencia}>
-                <i className="bx bx-edit icon"></i>
-                <span className="text nav-text nav-text-2">Registrar Asistencia</span>
+                <i class="bx bx-file-find icon"></i>
+                {/* <i className='bx bxs-file-find icon' ></i> */}
+                <span className="text nav-text nav-text-2">Asistencia</span>
               </Link>
             </li>
             <li className="nav-link">

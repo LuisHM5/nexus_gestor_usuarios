@@ -10,6 +10,7 @@ import Register from "./routes/Register";
 import Home from "./routes/Home";
 import { ProtectedRoute } from "./components/ProtectedRouter";
 import UsuarioPage from "./routes/usuarioPage";
+import { registrarAsistencia } from "./helpers/registrarAsistencia";
 
 // const router = createBrowserRouter([
 //   {
@@ -45,8 +46,13 @@ const rutas = {
 
 const App = () => {
   const storedUser = JSON.parse(localStorage.getItem("usuario"));
-  const [usuario, setUsuario] = useState(storedUser || null);
+  // const [usuario, setUsuario] = useState(storedUser || null);
+  const [usuario, setUsuario] = useState(null);
   const login = (usuarioLogeado) => {
+    if (storedUser) {
+      localStorage.removeItem("usuario");
+    }
+
     if (!usuario || usuarioLogeado) {
       setUsuario(usuarioLogeado);
       localStorage.setItem("usuario", JSON.stringify(usuarioLogeado));
@@ -54,9 +60,11 @@ const App = () => {
     }
   };
   const logout = () => {
+    registrarAsistencia({ usuario: { ...usuario, entrada: false } });
     localStorage.removeItem("usuario");
     setUsuario(null);
   };
+
   const router = createHashRouter([
     { path: "/", element: <Login login={login} usuario={usuario} /> },
     {

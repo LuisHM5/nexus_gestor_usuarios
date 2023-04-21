@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 import serviciologin from "../services/login";
 import { useState } from "react";
 import Notification from "../components/Notification";
+import { registrarAsistencia } from "../helpers/registrarAsistencia";
 const theme = createTheme();
 
 export default function Login({ login, usuario }) {
@@ -37,6 +38,7 @@ export default function Login({ login, usuario }) {
       } else {
         setFormLogin(initFormLogin);
         usuarioLogeado = login(res);
+        registrarAsistencia({ usuario: { ...res, entrada: true } });
       }
     });
 
