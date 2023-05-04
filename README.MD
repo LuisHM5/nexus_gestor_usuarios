@@ -6,9 +6,9 @@
 4. PHP
 5. MYSQL
 
-# Base de datos
+# Base de datos MYSQL
 
-Correr script en
+Correr script sql en
 
 ```
 nexus_gestor_usuarios\users_api_restfull_php_laravel\sql\DB_USUARIOS
@@ -40,36 +40,33 @@ npm install
 npm run dev
 ```
 
-### usuarios de prueba son
+## Imagenes del sistema
 
-```
-[
-            [
-                'nombre' => 'Luis Hernández Macías',
-                'usuario' => 'admin',
-                'correo' => 'admin@gmail.com',
-                'contraseña' => 'adminadmin',
-                'admin' => true,
-            ],
-            [
-                'nombre' => 'Leonel Gonzalez Erives',
-                'usuario' => 'sacredblades',
-                'correo' => 'blades@gmail.com',
-                'contraseña' => '12345678',
-                'admin' => true,
-            ],
-            [
-                'nombre' => 'Alejandro Ramirez',
-                'usuario' => 'test',
-                'correo' => 'test@gmail.com',
-                'contraseña' => 'adminadmin',
-                'admin' => false,
-            ],
-            [
-                'nombre' => 'Alejandro Ramirez 2',
-                'usuario' => 'test2',
-                'correo' => 'test2@gmail.com',
-                'contraseña' => 'adminadmin',
-                'admin' => false,
-            ],
-```
+### Login
+
+![login](/images/login.png)
+
+### Vista principal
+
+![lista-usuarios](/images/lista-usuarios.png)
+
+### Generar reporte (Obscuro)
+
+![generar-reporte](/images/generar-reporte.png)
+
+### Reporte PDF ejemplo
+
+![ejemplo-reporte-pdf](/images/ejemplo-reporte-pdf.png)
+
+### Registro usuarios
+
+![registro](/images/registro.png)
+
+### Vistas Mobile
+
+![mobile](/images/Mobile.png)
+
+### Vistas modo obscuro
+
+![dark-mode-inicio](/images/dark-mode-inicio.png)
+![dark-mode-inicio-close](/images/dark-mode-inicio-close.png)

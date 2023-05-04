@@ -1,0 +1,32 @@
+{
+  "usuarios": [
+    {
+      "nombre": "Luis Hernández Macías",
+      "usuario": "admin",
+      "correo": "admin@gmail.com",
+      "contraseña": "adminadmin",
+      "admin": true
+    },
+    {
+      "nombre": "Leonel Gonzalez Erives",
+      "usuario": "sacredblades",
+      "correo": "blades@gmail.com",
+      "contraseña": "12345678",
+      "admin": true
+    },
+    {
+      "nombre": "Alejandro Ramirez",
+      "usuario": "test",
+      "correo": "test@gmail.com",
+      "contraseña": "adminadmin",
+      "admin": false
+    },
+    {
+      "nombre": "Alejandro Ramirez 2",
+      "usuario": "test2",
+      "correo": "test2@gmail.com",
+      "contraseña": "adminadmin",
+      "admin": false
+    }
+  ]
+}
